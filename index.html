@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Search job listings from several source in one palce.">
+    <title>CareerConnect | Every open role, one search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <a class="skip-link" href="#jobs">Skip to listings</a>
+
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a class="brand" href="#top" aria-label="CareerConnect home"><span class="brand-mark" aria-hidden="true"></span>CareerConnect</a>
+            <nav aria-label="Main navigation">
+                <a href="#jobs">Find jobs</a>
+                <a href="#how">How it works</a>
+                <a href="#about">About</a>
+            </nav>
+            <button class="saved-nav" id="savedNav" type="button">Saved jobs <span id="savedCount">0</span></button>
+        </div>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <div class="container hero-inner">
+                <h1>Every open role,<br>one search.</h1>
+                <p class="hero-copy">CareerConnect pulls listings from Arbeitnow and Remotive into a signlee list. Search it, filter it, save the ones you like, then apply on the original site.</p>
+
+                <form class="hero-search" id="searchForm" role="search">
+                    <label class="search-field">
+                        <span class="field-label">What</span>
+                        <input id="keyword" type="search" placeholder="Job title, skill or company" autocomplete="off">
+                
+                    </label>
+                    <label class="search-field">
+                        <span class="field-label">Where</span>
+                        <input id="location" type="search" placeholder="City, country or remote" autocomplete="off">
+                    </label>
+                    <button class="primary-btn" type="submit">Search jobs</button>
+                </form>
+                <p class="hero-stat" id="statLine" aria-live="polite">Loading listings...</p>
+                
+            </div>
+        </section>
+
+        <section class="container jobs-section" id="jobs">
+            <div class="filter-bar" aria-label="Filters">
+                <div class="filter-item">
+                    <label for="typeFilter">Employment type</label>
+                    <select id="typeFilter" class="control">
+                        <option value="">All types</option>
+                        <option value="full-time">Full-time</option>
+                        <option value="part-time">Part-time</option>
+                        <option value="contract">Contract</option>
+                        <option value="internship">Internship</option>
+                        <option value="freelance">Freelance</option>
+                    </select>
+                
+                </div>
+                <div class="filter-item">
+                    <label for="sortFilter">Sort by</label>
+                    <select id="sortFilter" class="control">
+                        <option value="newest">Newest first</option>
+                        <option value="oldest">Oldest first</option>
+                        <option value="company">Company name</option>
+                    </select>
+                </div>
+                <label class="check-row"><input id="remoteFilter" type="checkbox"><span>Remote only</span></label>
+                <div class="filter-actions">
+                    <button id="clearFilters" class="text-button" type="button">Clear filters</button>
+                    <button id="refreshBtn" class="secondary-btn" type="button">Refresh listings</button>
+                </div>
+            </div>
+
+            <section class="results-head" aria-label="Job results">
+                <div class="result-head">
+                    <div class="tabs" role="group" aria-label="Job list view">
+                        <button class="tab active" data-tab="all" type="button" aria-pressed="true">All jobs</button>
+                        <button class="tab" data-tab="remote" type="button" aria-pressed="false">Remote</button>
+                        <button class="tab" data-tab="saved" type="button" aria-pressed="false">Saved</button>
+                    </div>
+                    <p class="result-count" id="resultCount" aria-live="polite">Loading...</p>
+                </div>
+                <div id="providerNotice" class="notice hidden" role="status"></div>
+
+                <div id="errorState" class="empty-state hidden" role="alert">
+                    <h3>we couln't load job listings</h3>
+                    <p id="errorMessage">Check your connection and try again.</p>
+                    <button class="primary-btn" id="retryBtn" type="button">Try again</button>
+                </div>
+
+                <div id="loadingState" class="skeleton-list" aria-hidden="true">
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                    <div class="skeleton"></div>
+                </div>
+
+                <ol id="jobList" class="job-list"></ol>
+
+                <div class="load-more-wrap">
+                    <button id="loadMore" class="secondary-btn hidden" type="button">Show more jobs</button>
+                </div>
+
+             <div id="emptyState" class="empty-state hidden">
+                <h3 id="emptyTitle">No jobs match these filters</h3>
+                <p id="emptyText">Try a different keyword, or clear the filters to see everything.</p>
+                <button class="secondary-btn" id="emptyClear" type="button">Clear filters</button>
+              </div>
+            </section>
+        </section>
+
+        <section class="how-section" id="how">
+            <div class="container">
+                <h2 class="section-title">How it works</h2>
+                <ol class="steps-grid">
+                    <li class="step-card">
+                        <h3>Search once</h3>
+                        <p>One search runs cross every connected job source, so you don't repeat it on each site.</p>
+                    </li>
+                    <li class="step-card">
+                        <h3>Narrow the list</h3>
+                        <p>Filter by location, employment type or remote, and sort by data or company.</p>
+                    </li>
+                    <li class="step-card">
+                        <h3>Apply at the source</h3>
+                        <p>Every job links to its original listing. Applications happen on the employer's own page.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="container about-card">
+                <div>
+                    <h2>An independent project</h2>
+                    <p>CareerConnect isn't affiliated with the job providers. Listings, descriptions and application link belong to their original sources.</p>
+                </div>
+                <div class="source-credit">
+                    <span>Job data from</span>
+                    <a href="https://www.arbeitnow.com/api" target="_blank" rel="noopener noreferrer">Arbeitnow</a>
+                    <a href="https://remotive.com/remote-job/api" target="_blank" rel="noopener noreferrer">Remotive</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-inner">
+            <span>© <span id="year"></span> CareerConnect</span>
+            <span>Job listings belong to their respective providers.</span>
+        </div>
+    </footer>
+
+    <dialog id="jobDialog" class="job-dialog" aria-labelledby="dialogTitle">
+        <div class="dialog-head">
+
+        <div>
+        <span class="source-badge" id="dialogSource"></span>
+        <h2 id="dialogTitle"></h2>
+        <p id="dialogCompany" class="muted"></p>
+    </div>
+    <button class="close-dialog" id="closeDialog" aria-label="Close details" type="button">x</button>
+</div>
+<div class="dialog-body">
+    <p class="detail-meta" id="dialogMeta"></p>
+    <h3>About this job</h3>
+    <div id="dialogDescription" class="job-description"></div>
+    <div id="dialogTags" class="tag-list"></div>
+</div>
+<div class="dialog-actions">
+    <button id="dialogSave" class="secondary-btn" type="button">Save job</button>
+    <a id="dialogApply" class="primary-btn" href="#" target="_blank" rel="noopener noreferrer">View original listing</a>
+    </div>
+    </dialog>
+</body>
+</html>
