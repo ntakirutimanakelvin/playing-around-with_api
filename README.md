@@ -10,7 +10,7 @@ CareerConnect is a job discovery website built with **HTML, CSS and vanilla Java
 | Load balancer (Lb01) | http://13.40.29.217 |
 | Web01 | http://13.40.175.219 |
 | Web02 | http://13.40.26.185 |
-| Demo video (max 2 minutes) | `ADD YOUR YOUTUBE / VIMEO LINK HERE` |
+| Demo video (max 2 minutes) | https://youtu.be/NwQVWoc7dok |
 
 ## Credentials and API keys
 
